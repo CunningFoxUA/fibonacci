@@ -18,6 +18,7 @@ public class FibonacciController {
             @RequestParam FibonacciType type,
             @RequestParam Double input) {
         //write your code here;
+
         return ResponseEntity.ok("Fibonacci");
     }
 }
