@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: fibonacci
+
+server:
+  port: 9090
