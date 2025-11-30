@@ -17,8 +17,43 @@ public class FibonacciController {
             @PathVariable StudentName student,
             @RequestParam FibonacciType type,
             @RequestParam Double input) {
-        //write your code here;
+        //write your code here; викликати
+        if(student == StudentName.NADIA && type == FibonacciType.STEP)
+        {
+            return nadyaFib(input.intValue());
+        }
 
         return ResponseEntity.ok("Fibonacci");
     }
+    // тут писати
+    private ResponseEntity<String> nadyaFib(int n)
+    {
+        StringBuilder steps = new StringBuilder();
+        long[] memo = new long[n+1];
+        nadyaRec(n, steps, memo);
+
+        steps.append("\nRESULT = ").append(memo[n]);
+        return ResponseEntity.ok(steps.toString());
+    }
+    private void nadyaRec(int n, StringBuilder steps, long[] memo)
+    {
+        if(n==0)
+        {
+            memo[n] = n;
+            steps.append("F(").append(n).append(") = ").append(n).append("\n");
+            return;
+        }
+
+        if(n==1)
+        {
+            memo[n] = n;
+            steps.append("F(").append(n).append(") = ").append(n).append("\n");
+            return;
+        }
+        if(memo[n-1] == 0) nadyaRec(n-1, steps, memo);
+        if(memo[n-2] == 0) nadyaRec(n-2, steps, memo);
+        memo[n] = memo[n-1] + memo[n-2];
+        steps.append("F(").append(n).append(") = ").append(memo[n]).append("\n");
+    }
+
 }
