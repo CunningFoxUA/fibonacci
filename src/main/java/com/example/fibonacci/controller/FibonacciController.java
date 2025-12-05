@@ -5,20 +5,43 @@ import com.example.fibonacci.dto.StudentName;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/math")
 public class FibonacciController {
-    //хочу побачити ваші ідеї
-    // Я хочу надіслати запит example: http://localhost:9090/math/ROMAN/fibonacci?input=19&type=step
-    // і хочу побачити що викликається саме метод який написав Роман ,
-    // це метод саме який рахує по кроках ну і інпет для нього 19
     @GetMapping("/{student}/fibonacci")
     public ResponseEntity<String> fibonacci(
             @PathVariable StudentName student,
             @RequestParam FibonacciType type,
-            @RequestParam Double input) {
-        //write your code here;
+            @RequestParam Integer input) {
 
-        return ResponseEntity.ok("Fibonacci");
+        if (student == StudentName.POLINA) {
+            return ResponseEntity.ok(generateFibonacci(input, type));
+        }
+        return ResponseEntity.ok("");
+    }
+    private String generateFibonacci(int input, FibonacciType type) {
+        List<Integer> sequence = new ArrayList<>();
+        int i = 0;
+        int value;
+
+        if (type == FibonacciType.STEP) {
+            while (i <= input) {
+                sequence.add(fib(i));
+                i++;
+            }
+        } else if (type == FibonacciType.LIMIT) {
+            while ((value = fib(i)) <= input) {
+                sequence.add(value);
+                i++;
+            }
+        }
+        return sequence.toString();
+    }
+    private int fib(int n) {
+        if (n <= 1) return n;
+        return fib(n - 1) + fib(n - 2);
     }
 }
