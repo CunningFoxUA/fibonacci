@@ -1,24 +1,55 @@
 package com.example.fibonacci.controller;
-
 import com.example.fibonacci.dto.FibonacciType;
 import com.example.fibonacci.dto.StudentName;
+import com.example.fibonacci.service.FibonacciService;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/math")
 public class FibonacciController {
-    //хочу побачити ваші ідеї
+    private final FibonacciService fibonacciService;
+
+    public FibonacciController(final FibonacciService fibonacciService) {
+        this.fibonacciService = fibonacciService;
+    }
+
     // Я хочу надіслати запит example: http://localhost:9090/math/ROMAN/fibonacci?input=19&type=step
-    // і хочу побачити що викликається саме метод який написав Роман ,
-    // це метод саме який рахує по кроках ну і інпет для нього 19
     @GetMapping("/{student}/fibonacci")
     public ResponseEntity<String> fibonacci(
             @PathVariable StudentName student,
             @RequestParam FibonacciType type,
             @RequestParam Double input) {
-        //write your code here;
 
-        return ResponseEntity.ok("Fibonacci");
+        switch (student) {
+            case OLEKSANDR:
+                var fibArray = new ArrayList<BigInteger>();
+                fibArray.add(BigInteger.ZERO);
+                fibArray.add(BigInteger.ONE);
+                var response = switch (type) {
+                    case STEP -> fibonacciService.oleksandrRecursionStep(fibArray, input);
+                    case LIMIT -> fibonacciService.oleksandrRecursionLimit(fibArray, input);
+                };
+                return ResponseEntity.ok(response.toString());
+
+            case ROMAN: break;
+            case NADIA: break;
+            case POLINA: break;
+            case STEPAN: break;
+            default: break;
+
+
+        }
+        return null;
     }
 }
