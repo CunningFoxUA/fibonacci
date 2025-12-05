@@ -20,7 +20,7 @@ import java.util.List;
 public class FibonacciController {
     private final FibonacciService fibonacciService;
 
-    public FibonacciController(FibonacciService fibonacciService) {
+    public FibonacciController(final FibonacciService fibonacciService) {
         this.fibonacciService = fibonacciService;
     }
 
@@ -33,7 +33,7 @@ public class FibonacciController {
 
         switch (student) {
             case OLEKSANDR:
-                List<BigInteger> fibArray = new ArrayList<>();
+                var fibArray = new ArrayList<BigInteger>();
                 fibArray.add(BigInteger.ZERO);
                 fibArray.add(BigInteger.ONE);
                 var response = switch (type) {
