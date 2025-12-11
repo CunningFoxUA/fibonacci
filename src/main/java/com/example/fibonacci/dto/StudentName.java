@@ -5,5 +5,6 @@ public enum StudentName {
     OLEKSANDR,
     STEPAN,
     NADIA,
-    POLINA
+    POLINA,
+    YAROSLAV
 }
