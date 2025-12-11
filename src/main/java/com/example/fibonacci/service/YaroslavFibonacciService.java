@@ -5,8 +5,8 @@ import com.example.fibonacci.dto.StudentName;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -22,9 +22,11 @@ public class YaroslavFibonacciService implements FibonacciService {
                             final Double input) {
         var result = switch (type) {
             case STEP -> calculateStep(input.intValue(),
-                    Stream.of(BigInteger.ZERO, BigInteger.ONE).toList());
+                    //.toList() -> Unmodif.
+                    //.collect(Collectors.toList()) -> modif.
+                    Stream.of(BigInteger.ZERO, BigInteger.ONE).collect(Collectors.toList()));
             case LIMIT -> calculateLimit(input.intValue(),
-                    Stream.of(BigInteger.ZERO, BigInteger.ONE).toList());
+                    Stream.of(BigInteger.ZERO, BigInteger.ONE).collect(Collectors.toList()));
         };
         return result.toString();
     }
@@ -36,10 +38,9 @@ public class YaroslavFibonacciService implements FibonacciService {
         var size = list.size();
         var next = list.get(size - 1).add(list.get(size - 2));
 
-        List<BigInteger> copy = new ArrayList<>(list);
-        copy.add(next);
+        list.add(next);
 
-        return calculateStep(steps - 1, copy);
+        return calculateStep(steps - 1, list);
     }
 
     private List<BigInteger> calculateLimit(final double limit,
@@ -49,9 +50,8 @@ public class YaroslavFibonacciService implements FibonacciService {
         var next = list.get(size - 1).add(list.get(size - 2));
         if (limit <= next.doubleValue()) return list;
 
-        List<BigInteger> copy = new ArrayList<>(list);
-        copy.add(next);
+        list.add(next);
 
-        return calculateLimit(limit, copy);
+        return calculateLimit(limit, list);
     }
 }
