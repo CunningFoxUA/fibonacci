@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FibonacciUtil {
-    private FibonacciUtil() {};
+public class FibonacciUtility {
+    private FibonacciUtility() {};
 
     public static List<BigInteger> romanRecursionStep(final int steps, final List<BigInteger> nums) {
         var sizeOfNums = nums.size();
