@@ -2,11 +2,14 @@ package com.example.fibonacci.service;
 
 import com.example.fibonacci.dto.FibonacciType;
 import com.example.fibonacci.dto.StudentName;
+import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Service
 public class RomanFibonacciService implements FibonacciService {
 
     @Override
