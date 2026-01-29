@@ -36,7 +36,7 @@ public class YaroslavFibonacciService implements FibonacciService {
         var size = list.size();
         var next = list.get(size - 1).add(list.get(size - 2));
 
-        List<BigInteger> copy = new ArrayList<>(list);
+        var copy = new ArrayList<>(list);
         copy.add(next);
 
         return calculateStep(steps - 1, copy);
@@ -49,7 +49,7 @@ public class YaroslavFibonacciService implements FibonacciService {
         var next = list.get(size - 1).add(list.get(size - 2));
         if (limit <= next.doubleValue()) return list;
 
-        List<BigInteger> copy = new ArrayList<>(list);
+        var copy = new ArrayList<>(list);
         copy.add(next);
 
         return calculateLimit(limit, copy);
